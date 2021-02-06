@@ -1,0 +1,57 @@
+<?php //%255BApp%255CEntity%255CApprenant%255D%255B1%255D
+
+return [PHP_INT_MAX, static function () { return \Symfony\Component\VarExporter\Internal\Hydrator::hydrate(
+    $o = [
+        clone (($p = &\Symfony\Component\VarExporter\Internal\Registry::$prototypes)['ApiPlatform\\Core\\Annotation\\ApiResource'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('ApiPlatform\\Core\\Annotation\\ApiResource')),
+        clone ($p['Doctrine\\ORM\\Mapping\\Entity'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('Doctrine\\ORM\\Mapping\\Entity')),
+    ],
+    null,
+    [
+        'stdClass' => [
+            'collectionOperations' => [
+                [
+                    'add_apprenant' => [
+                        'security' => 'is_granted(\'ROLE_Admin\')',
+                        'security_message' => 'Seul l\'admin peut ajouter cette ressource',
+                        'method' => 'POST',
+                        'path' => '/apprenants',
+                    ],
+                    'GET' => [
+                        'security' => 'is_granted(\'ROLE_Admin\') or is_granted(\'ROLE_Formateur\') or is_granted(\'ROLE_CM\') ',
+                        'security_message' => 'Seul l\'admin peut ajouter cette ressource',
+                        'method' => 'GET',
+                        'path' => '/apprenants',
+                    ],
+                ],
+            ],
+            'itemOperations' => [
+                [
+                    'get' => [
+                        'method' => 'GET',
+                        'path' => 'apprenants/{id}',
+                        'requirements' => [
+                            'id' => '\\d+',
+                        ],
+                    ],
+                    'put' => [
+                        'path' => 'apprenants/{id}',
+                    ],
+                ],
+            ],
+            'attributes' => [
+                [
+                    'security' => 'is_granted(\'ROLE_User\')',
+                    'security_message' => 'Vous n\'avez pas acces à cette ressource',
+                ],
+            ],
+            'repositoryClass' => [
+                1 => 'App\\Repository\\ApprenantRepository',
+            ],
+        ],
+    ],
+    [
+        $o[0],
+        $o[1],
+    ],
+    []
+); }];
