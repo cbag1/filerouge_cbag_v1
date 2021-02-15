@@ -57,7 +57,10 @@ class UserDataPersister implements ContextAwareDataPersisterInterface
      */
     public function remove($data, array $context = [])
     {
-        $this->_entityManager->remove($data);
+        $data->setArchive(1);
+        $this->_entityManager->persist($data);
         $this->_entityManager->flush();
+        // $this->_entityManager->remove($data);
+        // $this->_entityManager->flush();
     }
 }

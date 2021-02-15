@@ -217,7 +217,7 @@ return [[
 '%5B%5BC%5DApp%5CEntity%5CUser%5D%5B1%5D' => 2,
 '%5BApp%5CEntity%5CUser%23getId%5D%5B1%5D' => 1,
 '%5B%5BC%5DApp%5CEntity%5CUser%23getId%5D%5B1%5D' => 2,
-'%5BApp%5CEntity%5CUser%24id%5D%5B1%5D' => 7,
+'%5BApp%5CEntity%5CUser%24id%5D%5B1%5D' => 19,
 '%5B%5BC%5DApp%5CEntity%5CUser%24id%5D%5B1%5D' => 2,
 '%5BApp%5CEntity%5CUser%24archive%5D%5B1%5D' => 24,
 '%5B%5BC%5DApp%5CEntity%5CUser%24archive%5D%5B1%5D' => 2,
@@ -696,7 +696,7 @@ return [[
 
 0 => 'N;',
 1 => [],
-2 => 1612645443,
+2 => 1613342074,
 3 => static function () {
     return \Symfony\Component\VarExporter\Internal\Hydrator::hydrate(
         $o = [
@@ -1133,7 +1133,10 @@ return [[
                 'collectionOperations' => [
                     [
                         'GET',
-                        'POST',
+                        'post' => [
+                            'method' => 'POST',
+                            'path' => '/profils',
+                        ],
                     ],
                 ],
                 'itemOperations' => [
@@ -1147,7 +1150,7 @@ return [[
                     [
                         'security' => 'is_granted(\'ROLE_Admin\')',
                         'security_message' => 'Seul l\'admin a acces à cette ressource',
-                        'route_prefix' => '/admin',
+                        'route_prefix' => 'admin',
                         'normalization_context' => [
                             'groups' => [
                                 'profil:read',
@@ -1294,6 +1297,8 @@ return [[
             clone ($p['Doctrine\\ORM\\Mapping\\DiscriminatorColumn'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('Doctrine\\ORM\\Mapping\\DiscriminatorColumn')),
             clone ($p['Doctrine\\ORM\\Mapping\\DiscriminatorMap'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('Doctrine\\ORM\\Mapping\\DiscriminatorMap')),
             clone ($p['ApiPlatform\\Core\\Annotation\\ApiResource'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('ApiPlatform\\Core\\Annotation\\ApiResource')),
+            clone ($p['ApiPlatform\\Core\\Annotation\\ApiFilter'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('ApiPlatform\\Core\\Annotation\\ApiFilter')),
+            clone ($p['Symfony\\Bridge\\Doctrine\\Validator\\Constraints\\UniqueEntity'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('Symfony\\Bridge\\Doctrine\\Validator\\Constraints\\UniqueEntity')),
         ],
         null,
         [
@@ -1333,7 +1338,13 @@ return [[
                 'itemOperations' => [
                     4 => [
                         'PUT',
-                        'DELETE',
+                        'delete' => [
+                            'method' => 'DELETE',
+                            'path' => '/{id}',
+                            'requirements' => [
+                                'id' => '\\d+',
+                            ],
+                        ],
                         'get' => [
                             'method' => 'GET',
                             'path' => '/{id}',
@@ -1367,6 +1378,27 @@ return [[
                         ],
                     ],
                 ],
+                'filterClass' => [
+                    5 => 'ApiPlatform\\Core\\Bridge\\Doctrine\\Orm\\Filter\\BooleanFilter',
+                ],
+                'properties' => [
+                    5 => [
+                        'archive',
+                    ],
+                ],
+                'message' => [
+                    6 => 'le login existe deja',
+                ],
+                'fields' => [
+                    6 => [
+                        'username',
+                    ],
+                ],
+                'groups' => [
+                    6 => [
+                        'Default',
+                    ],
+                ],
             ],
         ],
         [
@@ -1375,6 +1407,8 @@ return [[
             $o[2],
             $o[3],
             $o[4],
+            $o[5],
+            $o[6],
         ],
         []
     );
@@ -1388,8 +1422,16 @@ return [[
         null,
         [
             'stdClass' => [
+                'name' => [
+                    'archive',
+                ],
                 'type' => [
                     'boolean',
+                ],
+                'options' => [
+                    [
+                        'default' => false,
+                    ],
                 ],
             ],
             'Symfony\\Component\\Serializer\\Annotation\\Groups' => [

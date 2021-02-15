@@ -6,6 +6,9 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiSubresource;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -38,7 +41,12 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
  * 
  *      },
 
- * itemOperations={"PUT","DELETE",
+ * itemOperations={"PUT",
+ *          "delete"={
+ *                "method"="DELETE",
+ *              "path"="/{id}",
+ *              "requirements"={"id"="\d+"}
+ *              },
  *          "get"={
  *              "method"="GET",
  *              "path"="/{id}",
@@ -52,6 +60,12 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
  *  }
  * )
  * 
+ * @ApiFilter(BooleanFilter::class, properties={"archive"})
+ *  @UniqueEntity(
+ *     fields={"username"},
+ *     message = "le login existe deja"
+ * )
+ * 
  */
 class User implements UserInterface
 {
@@ -59,6 +73,7 @@ class User implements UserInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"users:read"})
      */
     protected $id;
 
@@ -117,7 +132,7 @@ class User implements UserInterface
     protected $email;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(name="archive", type="boolean", options={"default":false})
      * @Groups({"users:read","users:write"})
      */
     private $archive = false;

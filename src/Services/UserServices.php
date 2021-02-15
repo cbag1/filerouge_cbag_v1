@@ -46,4 +46,34 @@ class UserServices{
         fclose($avatar);
         // return $this->json("success", Response::HTTP_CREATED);
     }
+
+      /**
+     * put image of user
+     * @param Request $request
+     * @param string|null $fileName
+     */
+    public function UpdateUser(Request $request,string $fileName = null)
+    {
+        $raw =$request->getContent();
+        $delimiteur = "multipart/form-data; boundary=";
+        $boundary= "--" . explode($delimiteur,$request->headers->get("content-type"))[1];
+        $elements = str_replace([$boundary,'Content-Disposition: form-data;',"name="],"",$raw);
+        $elementsTab = explode("\r\n\r\n",$elements);
+        $data =[];
+        //dd($elementsTab);
+        for ($i=0;isset($elementsTab[$i+1]);$i+=2){
+            $key = str_replace(["\r\n",' "','"'],'',$elementsTab[$i]);
+            if (strchr($key,$fileName)){
+                $stream =fopen('php://memory','r+');
+                fwrite($stream,$elementsTab[$i +1]);
+                rewind($stream);
+                $data[$fileName] = $stream;
+            }else{
+                $val=$elementsTab[$i+1];
+                $data[$key] = $val;
+            }
+        }
+        return $data;
+    }
+    
 }

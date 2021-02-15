@@ -13,14 +13,18 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource(
- * routePrefix="/admin",
+ * routePrefix="admin",
  * attributes={
  *    "security"= "is_granted('ROLE_Admin')",
  *    "security_message"="Seul l'admin a acces à cette ressource"},
  * 
  *     normalizationContext={"groups":{"profil:read"}} ,
  *     denormalizationContext={"groups":{"profil:write"}} , 
- * collectionOperations={"GET","POST"},
+ * collectionOperations={"GET",
+ *                      "post"={
+ *                              "method"="POST",
+ *                              "path"="/profils",
+ *                          }},
  * itemOperations={"GET","PUT","DELETE"}
  * )
  * @ORM\Entity(repositoryClass=ProfilRepository::class)

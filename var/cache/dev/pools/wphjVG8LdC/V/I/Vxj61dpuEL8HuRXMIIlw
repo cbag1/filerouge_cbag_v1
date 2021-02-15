@@ -1,0 +1,54 @@
+<?php //%255BApp%255CEntity%255CProfil%255D%255B1%255D
+
+return [PHP_INT_MAX, static function () { return \Symfony\Component\VarExporter\Internal\Hydrator::hydrate(
+    $o = [
+        clone (($p = &\Symfony\Component\VarExporter\Internal\Registry::$prototypes)['ApiPlatform\\Core\\Annotation\\ApiResource'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('ApiPlatform\\Core\\Annotation\\ApiResource')),
+        clone ($p['Doctrine\\ORM\\Mapping\\Entity'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('Doctrine\\ORM\\Mapping\\Entity')),
+    ],
+    null,
+    [
+        'stdClass' => [
+            'collectionOperations' => [
+                [
+                    'GET',
+                    'post' => [
+                        'method' => 'POST',
+                        'path' => '/profils',
+                    ],
+                ],
+            ],
+            'itemOperations' => [
+                [
+                    'GET',
+                    'PUT',
+                    'DELETE',
+                ],
+            ],
+            'attributes' => [
+                [
+                    'security' => 'is_granted(\'ROLE_Admin\')',
+                    'security_message' => 'Seul l\'admin a acces à cette ressource',
+                    'route_prefix' => 'admin',
+                    'normalization_context' => [
+                        'groups' => [
+                            'profil:read',
+                        ],
+                    ],
+                    'denormalization_context' => [
+                        'groups' => [
+                            'profil:write',
+                        ],
+                    ],
+                ],
+            ],
+            'repositoryClass' => [
+                1 => 'App\\Repository\\ProfilRepository',
+            ],
+        ],
+    ],
+    [
+        $o[0],
+        $o[1],
+    ],
+    []
+); }];

@@ -136,6 +136,6 @@ class __TwigTemplate_80e83b52d25ee0255e8f65a856ee83b91156faa5846e26ba12719f2f0ce
     </ul>
 </div>
 {% endblock %}
-", "grptags/index.html.twig", "/home/cbag/Documents/ODC/ProjetEnCours/filerouge_cbag/templates/grptags/index.html.twig");
+", "grptags/index.html.twig", "/home/cbag/Documents/ODC/ProjetEnCours/filerouge_cbag_v1/templates/grptags/index.html.twig");
     }
 }

@@ -27,13 +27,7 @@ class Niveau
      * @Groups({"niveau:read", "niveau:write"})
      * @Groups({"competences:read","competences:write"})
      */
-    private $libelle;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Groups({"niveau:read", "niveau:write"})
-     * @Groups({"competences:read","competences:write"})
-     */
+  
     private $description;
 
     /**
@@ -53,17 +47,17 @@ class Niveau
         return $this->id;
     }
 
-    public function getLibelle(): ?string
-    {
-        return $this->libelle;
-    }
+    // public function getLibelle(): ?string
+    // {
+    //     return $this->libelle;
+    // }
 
-    public function setLibelle(string $libelle): self
-    {
-        $this->libelle = $libelle;
+    // public function setLibelle(string $libelle): self
+    // {
+    //     $this->libelle = $libelle;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     public function getDescription(): ?string
     {
