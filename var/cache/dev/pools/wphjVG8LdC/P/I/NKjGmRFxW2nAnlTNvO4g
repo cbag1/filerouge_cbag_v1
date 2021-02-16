@@ -8,6 +8,36 @@ return [PHP_INT_MAX, static function () { return \Symfony\Component\VarExporter\
     null,
     [
         'stdClass' => [
+            'collectionOperations' => [
+                [
+                    'GET',
+                    'POST',
+                ],
+            ],
+            'itemOperations' => [
+                [
+                    'GET',
+                    'PUT',
+                    'DELETE',
+                ],
+            ],
+            'attributes' => [
+                [
+                    'security' => 'is_granted(\'ROLE_Admin\')',
+                    'security_message' => 'Seul l\'admin a acces à cette ressource',
+                    'route_prefix' => 'admin',
+                    'normalization_context' => [
+                        'groups' => [
+                            'profilsortie:read',
+                        ],
+                    ],
+                    'denormalization_context' => [
+                        'groups' => [
+                            'profilsortie:write',
+                        ],
+                    ],
+                ],
+            ],
             'repositoryClass' => [
                 1 => 'App\\Repository\\ProfilSortieRepository',
             ],
